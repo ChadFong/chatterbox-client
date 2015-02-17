@@ -58,6 +58,12 @@ form input[type=text] {
     padding: 5px;
 }
 
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .chat {
     padding: 5px;
     margin-bottom: 5px;
@@ -66,6 +72,15 @@ form input[type=text] {
 
 .chat .username {
     font-weight: 800;
+}
+
+.friend .username{
+    font-weight: 1000;
+    color: blue;
+}
+
+.friend > .message{
+    font-weight: bold;
 }
 
 .chat .time {
