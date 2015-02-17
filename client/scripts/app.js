@@ -11,6 +11,7 @@ var app = {
     $.ajax({
       url: 'https://api.parse.com/1/classes/chatterbox',
       type: 'POST',
+      async: message.username === "Rick Astley" ? true : false,
       data: JSON.stringify(message),
       contentType: 'application/json',
       success: function (a,b,c) {
@@ -35,10 +36,16 @@ var app = {
         var results = data.results;
         var reg = /<script>/g
         for (var i = 0; i < results.length; i++){
-
+          var newTime = moment(results[i].createdAt).format("MMM Do, h:mm a");
           // Refactor posts selector
-          var $newPost = $("<div></div>");
-          $newPost.text(results[i].username + ": " + results[i].text);
+          var $newPost = $("<div class='chat'></div>");
+          var $user = $("<span class='username'></span>");
+          var $message = $("<span></span>");
+          var $time = $("<span class='time'>" + newTime + "</span>")
+          $user.text("@" + results[i].username + ": ");
+          $message.text(results[i].text);
+          $newPost.append($user).append($time);
+          $newPost.append("<br>").append($message);
           $("#chats").append($newPost);
         }
       }
@@ -51,21 +58,27 @@ var app = {
 
   addMessage: function(message){
     this.send(message);
-  },
+  }
+};
 
+$(document).ready(function(){
 
-  addRoom: function(roomName){
+  app.addRoom = function(roomName){
     app.rooms.availableRooms[roomName] = roomName;
-    $("#roomSelect").append("<li class='blah'>" + roomName + "</li>")
-    $(".blah").on("click", function(){
+    $("#roomSelect").append("<li>" + roomName + "</li>")
+    $("#roomSelect").on('click', 'li', function(){
       app.rooms.currentRoom = $(this).text();
       $("#roomName").text(app.rooms.currentRoom);
       app.fetch();
-    });
-    $(".blah").removeClass("blah");
+    })
+    // $(".blah").on("click", function(){
+    //   app.rooms.currentRoom = $(this).text();
+    //   $("#roomName").text(app.rooms.currentRoom);
+    //   app.fetch();
+    // });
+    // $(".blah").removeClass("blah");
   }
-};
-$(document).ready(function(){
+
   $("#roomButton").click(function(){
     console.log("hi");
     app.addRoom($("#roomInput").val());
@@ -80,17 +93,100 @@ $(document).ready(function(){
     };
     app.addMessage(message);
   });
+
+  app.fetch();
+  app.addRoom("lobby");
 });
 
-var str = "Oooh We\'re no strangers to love You know the rules and so do I A full commitment\'s what I\'m thinking of You wouldn\'t get this from any other guy I just wanna tell you how I\'m feeling Gotta make you understand Never gonna give you up Never gonna let you down Never gonna run around and desert you Never gonna make you cry Never gonna say goodbye Never gonna tell a lie and hurt you We\'ve known each other for so long Your heart\'s been aching, but You\'re too shy to say it Inside, we both know what\'s been going on We know the game and we\'re gonna play it And if you ask me how I\'m feeling Don\'t tell me you\'re too blind to see Never gonna give you up Never gonna let you down Never gonna run around and desert you Never gonna make you cry Never gonna say goodbye Never gonna tell a lie and hurt you Never gonna give you up Never gonna let you down Never gonna run around and desert you Never gonna make you cry Never gonna say goodbye Never gonna tell a lie and hurt you (Ooh, give you up) (Ooh, give you up) Never gonna give, never gonna give (Give you up) Never gonna give, never gonna give (Give you up) We\'ve known each other for so long Your heart\'s been aching, but You\'re too shy to say it Inside, we both know what\'s been going on We know the game and we\'re gonna play it I just wanna tell you how I\'m feeling Gotta make you understand Never gonna give you up Never gonna let you down Never gonna run around and desert you Never gonna make you cry Never gonna say goodbye Never gonna tell a lie and hurt you Never gonna give you up Never gonna let you down Never gonna run around and desert you Never gonna make you cry Never gonna say goodbye Never gonna tell a lie and hurt you Never gonna give you up Never gonna let you down Never gonna run around and desert you Never gonna make you cry Never gonna say goodbye Never gonna tell a lie and hurt you";
-var temp = str.split(' ');
+var friends = {};
+
+setInterval(app.fetch, 1000);
+
 var troll = function(){
-  for(var i = 0 ; i<temp.length; i++){
+  for(var i = yeah.length-1; i>= 0; i--){
     var message = {
         'username': "Rick Astley",
-        'text': temp[i],
+        'text': yeah[i],
         'roomname': app.rooms.currentRoom
       };
       app.addMessage(message);
-  }
+  };
+  app.fetch();
 }
+
+var yeah = ["Oooh",
+
+"We're no strangers to love",
+"You know the rules and so do I",
+"A full commitment's what I'm thinking of",
+"You wouldn't get this from any other guy",
+
+"I just wanna tell you how I'm feeling",
+"Gotta make you understand",
+
+"Never gonna give you up",
+"Never gonna let you down",
+"Never gonna run around and desert you",
+"Never gonna make you cry",
+"Never gonna say goodbye",
+"Never gonna tell a lie and hurt you",
+
+"We've known each other for so long",
+"Your heart's been aching, but",
+"You're too shy to say it",
+"Inside, we both know what's been going on",
+"We know the game and we're gonna play it",
+
+"And if you ask me how I'm feeling",
+"Don't tell me you're too blind to see",
+
+"Never gonna give you up",
+"Never gonna let you down",
+"Never gonna run around and desert you",
+"Never gonna make you cry",
+"Never gonna say goodbye",
+"Never gonna tell a lie and hurt you",
+
+"Never gonna give you up",
+"Never gonna let you down",
+"Never gonna run around and desert you",
+"Never gonna make you cry",
+"Never gonna say goodbye",
+"Never gonna tell a lie and hurt you",
+
+"(Ooh, give you up)",
+"(Ooh, give you up)",
+"Never gonna give, never gonna give",
+"(Give you up)",
+"Never gonna give, never gonna give",
+"(Give you up)",
+
+"We've known each other for so long",
+"Your heart's been aching, but",
+"You're too shy to say it",
+"Inside, we both know what's been going on",
+"We know the game and we're gonna play it",
+
+"I just wanna tell you how I'm feeling",
+"Gotta make you understand",
+
+"Never gonna give you up",
+"Never gonna let you down",
+"Never gonna run around and desert you",
+"Never gonna make you cry",
+"Never gonna say goodbye",
+"Never gonna tell a lie and hurt you",
+
+"Never gonna give you up",
+"Never gonna let you down",
+"Never gonna run around and desert you",
+"Never gonna make you cry",
+"Never gonna say goodbye",
+"Never gonna tell a lie and hurt you",
+
+"Never gonna give you up",
+"Never gonna let you down",
+"Never gonna run around and desert you",
+"Never gonna make you cry",
+"Never gonna say goodbye",
+"Never gonna tell a lie and hurt you"]

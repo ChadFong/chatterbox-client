@@ -48,8 +48,6 @@ body {
 }
 
 form {
-    padding: 20px;
-    padding-left: 0;
     margin-bottom: 20px;
 }
 
@@ -68,6 +66,11 @@ form input[type=text] {
 
 .chat .username {
     font-weight: 800;
+}
+
+.chat .time {
+    float: right;
+    color: #777;
 }
 
 .chat:hover {
