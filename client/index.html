@@ -7,14 +7,19 @@
 
     <!-- dependencies -->
     <script src="bower_components/jquery/jquery.min.js"></script>
+    <script src="bower_components/underscore/underscore-min.js"></script>
     <!-- your scripts -->
     <script src="env/config.js"></script>
     <script src="scripts/app.js"></script>
   </head>
   <body>
     <div id="main">
-      <h1>chatterbox</h1>
-      <!-- Your HTML goes here! -->
+      <h1>chatterbox: <span id="roomName">Lobby</span></h1>
+      <ul id="roomSelect">
+      </ul>
+      <div id="chats">
+      </div>
     </div>
+    <script>app.fetch()</script>
   </body>
 </html>
