@@ -14,12 +14,23 @@
   </head>
   <body>
     <div id="main">
-      <h1>chatterbox: <span id="roomName">Lobby</span></h1>
+      <h1>chatterbox: <span id="roomName">lobby</span></h1>
+      <form>
+        <input id="roomInput" placeholder="Add Room"></input>
+        <input id="roomButton" type="button" value="submit">
+      </form>
       <ul id="roomSelect">
       </ul>
+      <form>
+        <input id="messageInput" placeholder="Message">
+        <input id="messageButton" type="button" value="Submit">
+      </form>
       <div id="chats">
       </div>
     </div>
-    <script>app.fetch()</script>
+    <script>
+    app.fetch();
+    app.addRoom("lobby");
+    </script>
   </body>
 </html>
